@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+    <title>Swiperjs Test</title>
+</head>
+<body>
+    <swiper-container class="container">
+        <swiper-slide>
+            <div>
+                Clock
+            </div>
+            <div class="disptx">
+                <p id="tx"></p>
+            </div>
+            <div class="disp">
+                <p id="clockhour">loding...</p>
+            </div>
+            <div class="disp">
+                <p id="clockMinute"></p>
+            </div>
+            <div class="disp">
+                <p id="clockSecond"></p>
+            </div>
+            <div class="disptx">
+                <p id="tx2"></p>
+            </div>
+            <div class="links">
+                <a href="https://twitter.com/ama_dev_1">My Twitter</a>
+            </div>
+            <div class="links">
+                <a href="https://youtube.com/@ama_p213">My Youtube</a>
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            Calc
+            <div class="calculator" id="calculatorDisp">
+                <h1>HTML calc</h1>
+                <input type="text" id="display" disabled>
+                <div class="button-coiner">
+                    <div class="buttons">
+                        <button onclick="appendToDisplay('7')">7</button>
+                        <button onclick="appendToDisplay('8')">8</button>
+                        <button onclick="appendToDisplay('9')">9</button>
+                        <button onclick="calculateResult()">=</button>
+                        <button onclick="appendToDisplay('4')">4</button>
+                        <button onclick="appendToDisplay('5')">5</button>
+                        <button onclick="appendToDisplay('6')">6</button>
+                        <button onclick="appendToDisplay('/')">÷</button>
+                        <button onclick="appendToDisplay('1')">1</button>
+                        <button onclick="appendToDisplay('2')">2</button>
+                        <button onclick="appendToDisplay('3')">3</button>
+                        <button onclick="appendToDisplay('*')">x</button>
+                        <button onclick="clearDisplay()">C</button>
+                        <button onclick="appendToDisplay('0')">0</button>
+                        <button onclick="appendToDisplay('.')">.</button>
+                        <button onclick="appendToDisplay('+')">+</button>
+                        <div style="display: flex; justify-content: flex-end; width: 215px;">
+                            <button onclick="appendToDisplay('-')" style="width: 50px;">-</button>
+                        </div>
+                    </div>
+                </div>
+        </swiper-slide>
+        
+      </swiper-container>
+</body>
+
+<script>
+     function clockDisp() {
+        let currentTime = new Date();
+        let hour = currentTime.getHours();
+        let minute = currentTime.getMinutes();
+        let second = currentTime.getSeconds();
+        let h = hour < 10 ? "0" + hour : hour;
+        let m = minute < 10 ? "0" + minute : minute;
+        let s = second < 10 ? "0" + second : second;
+        document.getElementById("clockhour").innerHTML = h;
+        document.getElementById("clockMinute").innerHTML = m;
+        document.getElementById("clockSecond").innerHTML = s;
+
+        let tx = second % 2 == 0 ? "-----" :null;
+        document.getElementById("tx").innerHTML = tx;
+        
+        document.getElementById("tx2").innerHTML = tx;
+    }
+
+    setInterval('clockDisp()', 0);
+    // 遅延軽減のため仮で0に設定
+
+    let displayValue = "";
+
+    function appendToDisplay(value) {
+        displayValue += value;
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        document.getElementById("display").value = displayValue;
+    }
+
+    function clearDisplay() {
+        displayValue = "";
+        updateDisplay();
+    }
+
+    function calculateResult() {
+        try {
+            const result = eval(displayValue);
+            displayValue = result.toString();
+            updateDisplay();
+        } catch (error) {
+            displayValue = "Error";
+            updateDisplay();
+        }
+    }
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    .container {
+        height: 90vh;
+    }
+
+    #calculatorDisp {
+                text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    header {
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .disp {
+        background: #000;
+        color: #00dd00;
+        font-size: 10vh;
+        display: flex;
+        justify-content: center;
+    }
+    .disptx {
+        background: #000;
+        color: #00dd00;
+        font-size: 10vh;
+        display: flex;
+        justify-content: center;
+        height: 200px;
+    }
+
+    .links {
+        background: #000;
+        font-size: 26px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .links a {
+        color: #00dd00;
+        text-decoration: none;
+    }
+
+    .calculator {
+        margin-top: 100px;
+    }
+
+    input[type="text"] {
+        width: 200px;
+        font-size: 24px;
+        padding: 5px;
+        text-align: right;
+    }
+
+    .button-coiner {
+        display: flex;
+        justify-content: center;
+        border-radius: 20px
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 50px);
+        gap: 5px;
+        margin-top: 10px;
+    }
+
+    .button-light {
+        display: flex;
+        justify-content: flex-end;
+        background-color: red;
+        width: 100%;
+    }
+
+    .button-light button {
+        width: 50px;
+    }
+
+    button {
+        font-size: 24px;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: lightgray;
+    }
+</style>
+</html>
